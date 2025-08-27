@@ -14,7 +14,7 @@ echo ========================================
 echo.
 echo Pasos siguientes:
 echo 1. Copia env.example a .env
-echo 2. Configura tus credenciales de Supabase en .env
+echo 2. Configura tus credenciales de postgres en .env
 echo 3. Ejecuta: npm run dev
 echo.
 pause
