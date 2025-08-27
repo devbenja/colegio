@@ -1,5 +1,4 @@
-const dns = require('dns');
-dns.setDefaultResultOrder('ipv4first');
+
 const sequelize = require('../src/config/database');
 
 (async () => {
