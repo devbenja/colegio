@@ -1,8 +1,11 @@
 const express = require('express');
-
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
+
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
 
 const sequelize = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
@@ -15,7 +18,13 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 
 // Middleware de CORS
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  credentials: true
+}));
+
+// Middleware para parsear cookies
+app.use(cookieParser());
 
 // Middleware para parsear JSON
 app.use(express.json());

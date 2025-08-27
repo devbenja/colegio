@@ -13,4 +13,7 @@ router.post('/login', loginSchema, AuthController.login);
 // Ruta para obtener perfil del usuario autenticado
 router.get('/profile', auth, AuthController.getProfile);
 
+// Ruta de logout
+router.post('/logout', auth, AuthController.logout);
+
 module.exports = router;

@@ -1,6 +1,6 @@
 # 🏫 Sistema de Gestión Escolar - Backend
 
-Backend completo para sistema de gestión escolar desarrollado con Node.js, Express, PostgreSQL (Supabase) y Sequelize.
+Backend completo para sistema de gestión escolar desarrollado con Node.js, Express, PostgreSQL y Sequelize.
 
 ## 🚀 Características
 
@@ -16,7 +16,7 @@ Backend completo para sistema de gestión escolar desarrollado con Node.js, Expr
 
 - **Node.js** - Runtime de JavaScript
 - **Express** - Framework web
-- **PostgreSQL** - Base de datos (Supabase)
+- **PostgreSQL** - Base de datos (local o Vercel)
 - **Sequelize** - ORM para Node.js
 - **JWT** - Autenticación stateless
 - **bcryptjs** - Hash de contraseñas
@@ -50,30 +50,51 @@ src/
 
 ## 🔧 Instalación
 
-1. **Clonar el repositorio**
-   ```bash
-   git clone <url-del-repositorio>
-   cd colegio
-   ```
+### Opción 1: Base de Datos Local (pgAdmin)
 
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
+1. **Instalar PostgreSQL y pgAdmin**
+   - Descarga e instala [PostgreSQL](https://www.postgresql.org/download/)
+   - pgAdmin se instala automáticamente con PostgreSQL
+
+2. **Crear base de datos**
+   - Abre pgAdmin
+   - Crea una nueva base de datos llamada `colegio_db`
+   - Usuario: `postgres` (por defecto)
+   - Contraseña: la que configuraste durante la instalación
 
 3. **Configurar variables de entorno**
    ```bash
    cp env.example .env
    ```
    
-   Editar `.env` con tu URI de Supabase (solo DB_URL):
+   Editar `.env` con tu configuración local:
    ```env
-   DB_URL=postgresql://postgres:tu_password@tu_host_supabase:5432/postgres
+   DB_URL=postgresql://postgres:TU_PASSWORD@localhost:5432/colegio_db
+   DB_SSL=false
    JWT_SECRET=tu_secreto_jwt_super_seguro
    PORT=3000
    ```
 
-4. **Ejecutar el servidor**
+### Opción 2: Base de Datos en Vercel
+
+1. **Crear proyecto en Vercel**
+   - Ve a [Vercel](https://vercel.com)
+   - Crea un nuevo proyecto PostgreSQL
+
+2. **Configurar variables de entorno**
+   ```env
+   DB_URL=postgresql://username:password@host:port/database
+   DB_SSL=true
+   JWT_SECRET=tu_secreto_jwt_super_seguro
+   PORT=3000
+   ```
+
+4. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
+
+5. **Ejecutar el servidor**
    ```bash
    # Desarrollo
    npm run dev

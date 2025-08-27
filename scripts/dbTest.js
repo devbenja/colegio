@@ -1,4 +1,3 @@
-
 const sequelize = require('../src/config/database');
 
 (async () => {
@@ -9,8 +8,12 @@ const sequelize = require('../src/config/database');
 
     const [results] = await sequelize.query("SELECT table_name FROM information_schema.tables WHERE table_schema='public' ORDER BY table_name");
     console.log('Tablas en el esquema public:');
-    for (const row of results) {
-      console.log('- ' + row.table_name);
+    if (results && Array.isArray(results)) {
+      for (const row of results) {
+        console.log('- ' + row);
+      }
+    } else {
+      console.log('No hay tablas o formato inesperado de resultados');
     }
   } catch (error) {
     console.error('❌ Error de conexión:', error.message);
