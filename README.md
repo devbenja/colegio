@@ -66,9 +66,9 @@ src/
    cp env.example .env
    ```
    
-   Editar `.env` con tus credenciales de Supabase:
+   Editar `.env` con tu URI de Supabase (solo DB_URL):
    ```env
-   DB_URL=postgresql://postgres:tu_password@db.supabase.co:5432/postgres
+   DB_URL=postgresql://postgres:tu_password@tu_host_supabase:5432/postgres
    JWT_SECRET=tu_secreto_jwt_super_seguro
    PORT=3000
    ```
