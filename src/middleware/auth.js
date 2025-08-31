@@ -1,5 +1,5 @@
-const JWTService = require('../lib/jwt');
-const User = require('../models/User');
+import JWTService from '../lib/jwt.js';
+import User from '../models/User.js';
 
 const auth = async (req, res, next) => {
   try {
@@ -53,4 +53,4 @@ const authorize = (...roles) => {
   };
 };
 
-module.exports = { auth, authorize };
+export { auth, authorize };

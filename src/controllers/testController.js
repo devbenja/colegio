@@ -60,4 +60,4 @@ class TestController {
   }
 }
 
-module.exports = TestController;
+export default TestController;

@@ -1,5 +1,5 @@
-const { validationResult } = require('express-validator');
-const AuthService = require('../services/authService');
+import { validationResult } from 'express-validator';
+import AuthService from '../services/authService.js';
 
 class AuthController {
   static async register(req, res) {
@@ -126,4 +126,4 @@ class AuthController {
   }
 }
 
-module.exports = AuthController;
+export default AuthController;

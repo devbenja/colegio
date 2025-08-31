@@ -1,15 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
-require('dotenv').config();
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 
-const dns = require('dns');
+dotenv.config();
+
+import dns from 'dns';
 dns.setDefaultResultOrder('ipv4first');
 
-const sequelize = require('./config/database');
-const authRoutes = require('./routes/authRoutes');
-const testRoutes = require('./routes/testRoutes');
+import sequelize from './config/database.js';
+import authRoutes from './routes/authRoutes.js';
+import testRoutes from './routes/testRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

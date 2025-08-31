@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+import { body } from 'express-validator';
 
 const loginSchema = [
   body('email')
@@ -32,7 +32,7 @@ const registerSchema = [
     .withMessage('El rol debe ser estudiante, profesor o admin')
 ];
 
-module.exports = {
+export {
   loginSchema,
   registerSchema
 };

@@ -2,6 +2,7 @@
   "name": "colegio-backend",
   "version": "1.0.0",
   "description": "Backend para sistema de gestión escolar",
+  "type": "module",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",

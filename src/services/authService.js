@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const JWTService = require('../lib/jwt');
+import User from '../models/User.js';
+import JWTService from '../lib/jwt.js';
 
 class AuthService {
   static async register(userData) {
@@ -87,4 +87,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+export default AuthService;

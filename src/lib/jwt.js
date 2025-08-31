@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 class JWTService {
   static generateToken(payload) {
@@ -24,4 +24,4 @@ class JWTService {
   }
 }
 
-module.exports = JWTService;
+export default JWTService;

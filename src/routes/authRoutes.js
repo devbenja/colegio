@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const AuthController = require('../controllers/authController');
-const { auth } = require('../middleware/auth');
-const { loginSchema, registerSchema } = require('../schemas/authSchemas');
+import AuthController from '../controllers/authController.js';
+import { auth } from '../middleware/auth.js';
+import { loginSchema, registerSchema } from '../schemas/authSchemas.js';
 
 // Ruta de registro
 router.post('/register', registerSchema, AuthController.register);
@@ -16,4 +16,4 @@ router.get('/profile', auth, AuthController.getProfile);
 // Ruta de logout
 router.post('/logout', auth, AuthController.logout);
 
-module.exports = router;
+export default router;
