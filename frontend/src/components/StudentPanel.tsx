@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 interface StudentPanelProps {
   user: any
@@ -48,76 +51,131 @@ export default function StudentPanel({ user, onLogout }: StudentPanelProps) {
 
   const renderAcademicInfo = () => (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold">Información Académica</h3>
+      <h3 className="text-2xl font-semibold tracking-tight">Información Académica</h3>
       {academicInfo ? (
-        <div className="bg-white p-6 rounded-lg shadow border">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold text-lg mb-4">Datos Personales</h4>
-              <div className="space-y-2">
-                <p><span className="font-medium">Nombre:</span> {academicInfo.estudiante.nombre} {academicInfo.estudiante.apellido}</p>
-                <p><span className="font-medium">Email:</span> {academicInfo.estudiante.email}</p>
-                <p><span className="font-medium">Rol:</span> Estudiante</p>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="text-2xl">👤</span>
+                Datos Personales
+              </CardTitle>
+              <CardDescription>Información personal del estudiante</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex justify-between items-center py-2 border-b">
+                <span className="font-medium text-muted-foreground">Nombre:</span>
+                <span className="font-semibold">{academicInfo.estudiante.nombre} {academicInfo.estudiante.apellido}</span>
               </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg mb-4">Grados Inscritos</h4>
+              <div className="flex justify-between items-center py-2 border-b">
+                <span className="font-medium text-muted-foreground">Email:</span>
+                <span className="font-semibold">{academicInfo.estudiante.email}</span>
+              </div>
+              <div className="flex justify-between items-center py-2">
+                <span className="font-medium text-muted-foreground">Rol:</span>
+                <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">
+                  Estudiante
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="text-2xl">🎓</span>
+                Grados Inscritos
+              </CardTitle>
+              <CardDescription>Grados en los que estás inscrito</CardDescription>
+            </CardHeader>
+            <CardContent>
               {academicInfo.grados && academicInfo.grados.length > 0 ? (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {academicInfo.grados.map((grade: any) => (
-                    <div key={grade.id} className="p-3 bg-blue-50 rounded border">
-                      <p className="font-medium">{grade.nombre}</p>
-                      <p className="text-sm text-gray-600">{grade.descripcion}</p>
+                    <div key={grade.id} className="p-4 bg-muted/50 rounded-lg border">
+                      <h4 className="font-semibold text-lg text-primary">{grade.nombre}</h4>
+                      <p className="text-sm text-muted-foreground mt-1">{grade.descripcion}</p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-500">No estás inscrito en ningún grado</p>
+                <div className="text-center py-8">
+                  <div className="text-4xl mb-2">📚</div>
+                  <p className="text-muted-foreground">No estás inscrito en ningún grado</p>
+                </div>
               )}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       ) : (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <p className="text-yellow-800">No se pudo cargar la información académica</p>
-        </div>
+        <Card className="border-yellow-200 bg-yellow-50">
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <div className="text-4xl mb-2">⚠️</div>
+              <p className="text-yellow-800">No se pudo cargar la información académica</p>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   )
 
   const renderSchedule = () => (
     <div className="space-y-6">
-      <h3 className="text-xl font-semibold">Horario</h3>
+      <h3 className="text-2xl font-semibold tracking-tight">Horario</h3>
       {schedule ? (
-        <div className="bg-white p-6 rounded-lg shadow border">
-          <p className="text-gray-600 mb-4">Tu horario de clases</p>
-          {schedule.horario && schedule.horario.length > 0 ? (
-            <div className="space-y-4">
-              {schedule.horario.map((day: any, index: number) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <h5 className="font-semibold text-lg mb-3 text-blue-600">{day.dia}</h5>
-                  <div className="space-y-2">
-                    {day.materias.map((materia: any, mIndex: number) => (
-                      <div key={mIndex} className="flex justify-between items-center p-2 bg-gray-50 rounded">
-                        <span className="font-medium">{materia.materia}</span>
-                        <span className="text-sm text-gray-600">{materia.hora}</span>
-                        <span className="text-sm text-blue-600">{materia.profesor}</span>
-                      </div>
-                    ))}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <span className="text-2xl">📅</span>
+              Tu Horario de Clases
+            </CardTitle>
+            <CardDescription>Organiza tu tiempo de estudio</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {schedule.horario && schedule.horario.length > 0 ? (
+              <div className="space-y-6">
+                {schedule.horario.map((day: any, index: number) => (
+                  <div key={index} className="space-y-3">
+                    <h5 className="text-lg font-semibold text-primary border-b pb-2">{day.dia}</h5>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Materia</TableHead>
+                          <TableHead>Hora</TableHead>
+                          <TableHead>Profesor</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {day.materias.map((materia: any, mIndex: number) => (
+                          <TableRow key={mIndex}>
+                            <TableCell className="font-medium">{materia.materia}</TableCell>
+                            <TableCell className="text-muted-foreground">{materia.hora}</TableCell>
+                            <TableCell className="text-primary">{materia.profesor}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
                   </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="bg-gray-50 p-4 rounded border">
-              <p className="text-gray-500 text-center">No hay horario disponible</p>
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-4xl mb-2">📚</div>
+                <p className="text-muted-foreground">No hay horario disponible</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       ) : (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <p className="text-yellow-800">No se pudo cargar el horario</p>
-        </div>
+        <Card className="border-yellow-200 bg-yellow-50">
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <div className="text-4xl mb-2">⚠️</div>
+              <p className="text-yellow-800">No se pudo cargar el horario</p>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   )
@@ -131,36 +189,32 @@ export default function StudentPanel({ user, onLogout }: StudentPanelProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-lg shadow-lg">
-        {/* Tabs */}
-        <div className="border-b border-gray-200">
-          <nav className="flex space-x-8 px-6">
-            {[
-              { id: 'info', label: 'Información Académica' },
-              { id: 'schedule', label: 'Horario' }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        {/* Tab Content */}
-        <div className="p-6">
-          {activeTab === 'info' && renderAcademicInfo()}
-          {activeTab === 'schedule' && renderSchedule()}
-        </div>
-      </div>
+    <div className="max-w-6xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <span className="text-2xl">🎓</span>
+            Panel del Estudiante
+          </CardTitle>
+          <CardDescription>
+            Gestiona tu información académica y horario de clases
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="info">Información Académica</TabsTrigger>
+              <TabsTrigger value="schedule">Horario</TabsTrigger>
+            </TabsList>
+            <TabsContent value="info" className="mt-6">
+              {renderAcademicInfo()}
+            </TabsContent>
+            <TabsContent value="schedule" className="mt-6">
+              {renderSchedule()}
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
     </div>
   )
 }

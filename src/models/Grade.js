@@ -12,7 +12,8 @@ const Grade = sequelize.define('Grade', {
     allowNull: false,
     unique: true,
     validate: {
-      isIn: [['1°', '2°', '3°', '4°', '5°', '6°']]
+      notEmpty: true,
+      len: [2, 100] // Mínimo 2 caracteres, máximo 100
     }
   },
   descripcion: {

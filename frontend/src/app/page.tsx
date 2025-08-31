@@ -111,8 +111,8 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 py-4">
           {/* Header Principal con Flexbox */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -120,7 +120,12 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <div className="text-4xl">🏫</div>
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold">Sistema de Gestión Escolar</h1>
+                <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Sistema de Gestión Escolar
+                </h1>
+                <p className="text-sm text-muted-foreground hidden md:block">
+                  Administración Integral Educativa
+                </p>
               </div>
             </div>
 
@@ -128,24 +133,22 @@ export default function Home() {
             {user && (
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 {/* Información del Usuario */}
-                <div className="flex items-center gap-3 bg-blue-500 bg-opacity-20 px-4 py-2 rounded-lg">
+                <div className="flex items-center gap-3 bg-muted/50 px-4 py-2 rounded-lg border">
                   <div className="text-2xl">
                     {user.role === 'admin' ? '👨‍💼' : 
                      user.role === 'estudiante' || user.role === 'student' ? '👨‍🎓' : 
                      user.role === 'profesor' || user.role === 'teacher' ? '👨‍🏫' : '👤'}
                   </div>
                   <div className="text-sm">
-                    <p className="font-medium">{user.nombre} {user.apellido}</p>
-                    <p className="text-blue-200 capitalize">{user.role}</p>
+                    <p className="font-medium text-foreground">{user.nombre} {user.apellido}</p>
+                    <p className="text-muted-foreground capitalize">{user.role}</p>
                   </div>
                 </div>
 
                 {/* Botón de Logout */}
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-all duration-200 
-                           transform hover:scale-105 shadow-md hover:shadow-lg text-sm font-medium
-                           flex items-center gap-2"
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-destructive text-destructive-foreground hover:bg-destructive/90 h-10 px-4 py-2 gap-2"
                 >
                   <span>🚪</span>
                   <span className="hidden sm:inline">Cerrar Sesión</span>
