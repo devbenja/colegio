@@ -10,8 +10,12 @@ import dns from 'dns';
 dns.setDefaultResultOrder('ipv4first');
 
 import sequelize from './config/database.js';
+import { setupAssociations } from './config/associations.js';
 import authRoutes from './routes/authRoutes.js';
 import testRoutes from './routes/testRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import studentRoutes from './routes/studentRoutes.js';
+import teacherRoutes from './routes/teacherRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,7 +25,7 @@ app.use(helmet());
 
 // Middleware de CORS
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3001',
   credentials: true
 }));
 
@@ -35,6 +39,9 @@ app.use(express.urlencoded({ extended: true }));
 // Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/test', testRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/student', studentRoutes);
+app.use('/api/teacher', teacherRoutes);
 
 // Ruta de prueba principal
 app.get('/', (req, res) => {
@@ -43,7 +50,10 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       auth: '/api/auth',
-      test: '/api/test'
+      test: '/api/test',
+      admin: '/api/admin',
+      student: '/api/student',
+      teacher: '/api/teacher'
     }
   });
 });
@@ -68,6 +78,10 @@ app.use('*', (req, res) => {
 // Función para sincronizar la base de datos y iniciar el servidor
 async function startServer() {
   try {
+    // Configurar las asociaciones entre modelos
+    setupAssociations();
+    console.log('✅ Asociaciones configuradas');
+    
     // Sincronizar modelos con la base de datos
     await sequelize.sync({ force: false });
     console.log('✅ Base de datos sincronizada');
@@ -78,6 +92,9 @@ async function startServer() {
       console.log(`📚 API del Sistema de Gestión Escolar`);
       console.log(`🔐 Endpoints de autenticación: /api/auth`);
       console.log(`🧪 Endpoints de prueba: /api/test`);
+      console.log(`👨‍💼 Endpoints de administración: /api/admin`);
+      console.log(`👨‍🎓 Endpoints de estudiantes: /api/student`);
+      console.log(`👨‍🏫 Endpoints de profesores: /api/teacher`);
     });
   } catch (error) {
     console.error('❌ Error al iniciar el servidor:', error);

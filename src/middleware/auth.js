@@ -2,8 +2,9 @@ import JWTService from '../lib/jwt.js';
 import User from '../models/User.js';
 
 const auth = async (req, res, next) => {
+
   try {
-    // Priorizar cookies sobre headers para mayor seguridad
+    
     let token = req.cookies.token || req.header('Authorization')?.replace('Bearer ', '');
     
     if (!token) {
