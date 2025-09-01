@@ -80,21 +80,21 @@ async function startServer() {
   try {
     // Configurar las asociaciones entre modelos
     setupAssociations();
-    console.log('✅ Asociaciones configuradas');
+    //console.log('✅ Asociaciones configuradas');
     
     // Sincronizar modelos con la base de datos
     await sequelize.sync({ force: false });
-    console.log('✅ Base de datos sincronizada');
+    console.log('conectado a la base de datos');
 
     // Iniciar servidor
     app.listen(PORT, () => {
       console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-      console.log(`📚 API del Sistema de Gestión Escolar`);
+      /*console.log(`📚 API del Sistema de Gestión Escolar`);
       console.log(`🔐 Endpoints de autenticación: /api/auth`);
       console.log(`🧪 Endpoints de prueba: /api/test`);
       console.log(`👨‍💼 Endpoints de administración: /api/admin`);
       console.log(`👨‍🎓 Endpoints de estudiantes: /api/student`);
-      console.log(`👨‍🏫 Endpoints de profesores: /api/teacher`);
+      console.log(`👨‍🏫 Endpoints de profesores: /api/teacher`);*/
     });
   } catch (error) {
     console.error('❌ Error al iniciar el servidor:', error);
